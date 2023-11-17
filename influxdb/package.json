@@ -1,0 +1,24 @@
+{
+  "name": "influxdb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@influxdata/influxdb-client": "^1.33.2"
+  },
+  "evidence": {
+    "databases": [
+      "influxdb2"
+    ],
+    "icon": "Influxdb"
+  },
+  "devDependencies": {
+    "@evidence-dev/db-commons": "0.2.1-usql.2"
+  }
+}

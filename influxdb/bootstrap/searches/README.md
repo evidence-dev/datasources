@@ -1,0 +1,1 @@
+https://trends.google.com/trends/explore?cat=5&date=today%203-m&geo=US&q=%2Fg%2F11b8krtt2g,%2Fm%2F05ynw,%2Fm%2F0g5s7gf,%2Fg%2F11swmy6yh8,%2Fm%2F04y3k&hl=en

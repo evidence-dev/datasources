@@ -1,0 +1,55 @@
+version: "3.9"
+
+services:
+  influxdb:
+    image: influxdb:2.7-alpine
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: local-user
+      DOCKER_INFLUXDB_INIT_PASSWORD: password
+      DOCKER_INFLUXDB_INIT_ORG: local-org
+      DOCKER_INFLUXDB_INIT_BUCKET: bitcoin
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: token
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "localhost:8086/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 2s
+    ports:
+      - 8086:8086
+
+  influxdb-load-samples:
+    image: influxdb:2.7-alpine
+    command: [
+      "bash",
+      "-c",
+      "influx delete --start 2000-01-01T00:00:00Z --stop 2100-01-01T00:00:00Z --host http://influxdb:8086 -o local-org --token token --bucket bitcoin && influx query --file /app/load-sample-data.flux --host http://influxdb:8086 -o local-org --token token"
+    ]
+      
+    volumes:
+      - ${PWD}:/app
+    depends_on:
+      influxdb:
+        condition: service_healthy
+    restart: no
+
+  evidence:
+    working_dir: /app/test-project
+    image: node:18-alpine
+    volumes:
+      - ${PWD}/..:/app
+    command: npm run build:sources
+    restart: no
+    ports:
+      - 3000:3000
+    environment:
+      EVIDENCE_SOURCE__bitcoin__token: token
+      EVIDENCE_SOURCE__bitcoin__url: http://influxdb:8086
+      EVIDENCE_SOURCE__bitcoin__organization: local-org
+    depends_on:
+      influxdb:
+        condition: service_healthy
+      influxdb-load-samples:
+        condition: service_completed_successfully

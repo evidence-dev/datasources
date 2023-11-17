@@ -1,0 +1,28 @@
+{
+  "name": "my-evidence-project",
+  "version": "0.0.1",
+  "scripts": {
+    "build": "evidence build",
+    "build:strict": "evidence build:strict",
+    "dev": "evidence dev --host 0.0.0.0",
+    "test": "evidence build",
+    "build:sources": "evidence build:sources"
+  },
+  "engines": {
+    "npm": ">=7.0.0",
+    "node": ">=16.14.0"
+  },
+  "type": "module",
+  "dependencies": {
+    "@evidence-dev/core-components": "usql",
+    "@evidence-dev/evidence": "usql",
+    "@evidence-dev/faker-datasource": "usql",
+    "@evidence-dev/usql-datatable": "^1.0.2",
+    "influxdb": "file:.."
+  },
+  "overrides": {
+    "jsonwebtoken": "9.0.0",
+    "trim@<0.0.3": ">0.0.3",
+    "sqlite3": "5.1.5"
+  }
+}

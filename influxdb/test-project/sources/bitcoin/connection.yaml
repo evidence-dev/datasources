@@ -1,0 +1,7 @@
+name: bitcoin
+type: influxdb2
+
+options:
+  token: Your API Token
+  url: https://influx.example.com
+  organization: acmecorp
