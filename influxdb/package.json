@@ -1,5 +1,5 @@
 {
-  "name": "influxdb",
+  "name": "@evidence-dev/connector-influxdb",
   "version": "1.0.0",
   "description": "",
   "main": "index.mjs",
