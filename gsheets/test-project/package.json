@@ -4,7 +4,7 @@
   "scripts": {
     "build": "evidence build",
     "build:strict": "evidence build:strict",
-    "dev": "evidence dev --host 0.0.0.0",
+    "dev": "evidence dev",
     "test": "evidence build",
     "build:sources": "evidence build:sources"
   },
@@ -14,10 +14,11 @@
   },
   "type": "module",
   "dependencies": {
+    "@evidence-dev/connector-gsheets": "file:..",
     "@evidence-dev/core-components": "usql",
     "@evidence-dev/evidence": "usql",
     "@evidence-dev/faker-datasource": "usql",
-    "influxdb": "file:.."
+    "google-auth-library": "^9.2.0"
   },
   "overrides": {
     "jsonwebtoken": "9.0.0",

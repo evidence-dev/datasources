@@ -1,0 +1,26 @@
+{
+  "name": "@evidence-dev/connector-gsheets",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "google-auth-library": "^9.2.0",
+    "google-spreadsheet": "^4.1.1",
+    "yaml": "^2.3.4"
+  },
+  "evidence": {
+    "databases": [
+      "gsheets"
+    ],
+    "icon": "Googlesheets"
+  },
+  "devDependencies": {
+    "@evidence-dev/db-commons": "usql"
+  }
+}
