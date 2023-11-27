@@ -1,4 +1,4 @@
-import {GoogleSpreadsheet} from "google-spreadsheet";
+import {GoogleSpreadsheet, GoogleSpreadsheetWorksheet} from "google-spreadsheet";
 import {JWT} from "google-auth-library";
 import yaml from "yaml";
 import fs from 'fs/promises';
@@ -42,24 +42,60 @@ export async function* processSource(opts, files, utils) {
 
 
     for (const [name, id] of Object.entries(sheets)) {
-        const sheet = new GoogleSpreadsheet(id, auth)
+        /** @type {GoogleSpreadsheet} */
+        let sheet;
+        if (typeof id === "string") {
+            sheet = new GoogleSpreadsheet(id, auth)
+        } else {
+            if ("id" in id) {
+                sheet = new GoogleSpreadsheet(id.id, auth)
+            } else {
+                throw new Error(`Sheet ${name} does not have an id!`)
+            }
+        }
+
         await sheet.loadInfo()
 
-        // TODO: Page indexes?
-        const page = sheet.sheetsByIndex[0]
+        /** @type {Array<GoogleSpreadsheetWorksheet>} */
+        let pages
+        if (typeof id === "string" || !("pages" in id)) {
+            // All pages
+            pages = Object.values(sheet.sheetsById)
+        } else {
+            if (!Array.isArray(id.pages)) {
+                throw new Error(`Sheet ${name} has some pages provided, but not as an array`)
+            }
+            pages = sheet.sheetsByIndex.filter(sheet =>
+                id.pages.includes(sheet.a1SheetName.substr(1, sheet.a1SheetName.length - 2)) // a1SheetName is wrapped in ', we need to remove that
+            )
 
-        const colCount = page.columnCount
-        const rowCount = page.rowCount
+        }
 
-        await page._ensureHeaderRowLoaded()
+        if (!pages.length) {
+            console.warn(`Sheet ${name} does not include any pages!`)
+        }
 
-        const pageFile = temporaryFile({ extension: 'csv' })
-        await fs.writeFile(pageFile, await page.downloadAsCSV(true))
+        for (const page of pages) {
+            const pageFile = temporaryFile({extension: 'csv'})
+            await fs.writeFile(pageFile, await page.downloadAsCSV(true))
 
-        yield {
-            ...await runQuery(`SELECT * FROM '${pageFile}'`, { filename: ':memory:' }),
-            name: name + "_" + page.title.replaceAll(" ", "_").toLowerCase(),
-            content: name + "_" + page.title
+            const {rows, columnTypes} = await runQuery(`SELECT *
+                                                        FROM '${pageFile}'`, {filename: ':memory:'})
+
+            yield {
+                rows: async function* () {
+                    for await (const batch of rows()) {
+                        yield batch.filter(
+                            // This filters out rows that are ONLY undefined, null, or emptystring.
+                            // TODO: Is this desired behavior?
+                            row => Object.values(row).some(col => ![undefined, null, ''].includes(col))
+                        )
+                    }
+                },
+                columnTypes: columnTypes,
+                name: name + "_" + page.title.replaceAll(" ", "_").toLowerCase(),
+                content: name + "_" + page.title
+            }
         }
     }
     return null
