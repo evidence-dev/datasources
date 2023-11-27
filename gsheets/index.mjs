@@ -69,6 +69,17 @@ export async function* processSource(opts, files, utils) {
                 id.pages.includes(sheet.a1SheetName.substr(1, sheet.a1SheetName.length - 2)) // a1SheetName is wrapped in ', we need to remove that
             )
 
+            pages = id.pages.reduce((a,v) => {
+                const worksheet = sheet.sheetsByTitle[v]
+                if (!worksheet) {
+                    console.warn(`Expected to find page ${v} in ${sheet.title}, but did not find it.`)
+                } else {
+                    a.push(worksheet)
+                }
+
+                return a
+            }, [])
+
         }
 
         if (!pages.length) {
@@ -112,6 +123,7 @@ export const options = {
         type: "file",
         fileFormat: "json",
         virtual: true,
+        description: "Google Cloud Platform Service Account keyfile"
     },
     client_email: {
         title: "Client Email",
