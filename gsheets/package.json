@@ -21,6 +21,7 @@
     "icon": "Googlesheets"
   },
   "devDependencies": {
-    "@evidence-dev/db-commons": "usql"
+    "@evidence-dev/db-commons": "usql",
+    "typescript": "^5.3.2"
   }
 }

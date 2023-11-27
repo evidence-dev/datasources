@@ -24,6 +24,12 @@ Here we're querying the `orders` table defined in `sources/demo-data`. This tabl
 
 You have access to all of the tables defined in your sources directory. 
 
+```s
+SELECT * FROM public_employee_sample_data
+```
+
+<DataTable data={s}/>
+
 ```all_orders
 
 select 
