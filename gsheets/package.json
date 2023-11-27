@@ -10,8 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@evidence-dev/duckdb": "^0.0.0-ab",
     "google-auth-library": "^9.2.0",
     "google-spreadsheet": "^4.1.1",
+    "tempy": "^3.1.0",
     "yaml": "^2.3.4"
   },
   "evidence": {
