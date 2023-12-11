@@ -13,7 +13,7 @@
     "@influxdata/influxdb-client": "^1.33.2"
   },
   "evidence": {
-    "databases": [
+    "datasources": [
       "influxdb2"
     ],
     "icon": "Influxdb"

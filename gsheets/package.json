@@ -1,10 +1,12 @@
 {
   "name": "@evidence-dev/connector-gsheets",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Google Sheet connector for https://evidence.dev",
   "main": "index.mjs",
   "keywords": [
-    "evidence", "google-sheets", "evidence-datasource"
+    "evidence",
+    "google-sheets",
+    "evidence-datasource"
   ],
   "author": "Brian Donald",
   "license": "MIT",
@@ -16,7 +18,7 @@
     "yaml": "^2.3.4"
   },
   "evidence": {
-    "databases": [
+    "datasources": [
       [
         "gsheets",
         "google-sheets"
