@@ -4,7 +4,7 @@ This repository demonstrates how to create a new data source as a plugin to Evid
 
 ## Examples In this Repository
 
-- [Google Sheets]
+- [Google Sheets](https://github.com/evidence-dev/datasources/tree/main/gsheets)
 - [Influx DB](https://github.com/evidence-dev/datasources/tree/main/influxdb)
 
 ## Creating your own plugin
