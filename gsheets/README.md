@@ -1,3 +1,5 @@
+<img src="https://www.google.com/images/about/sheets-icon.svg" height="40"  style="margin-right: 50;"/><span>&nbsp;&nbsp;</span><img src="https://raw.githubusercontent.com/evidence-dev/media-kit/main/svg/logo-round-white-on-black.svg" height="40"/>
+
 # Evidence Google Sheets Adapter
 
 This plugin allows you to use Google Sheets as a datasource for [Evidence](https://evidence.dev).
