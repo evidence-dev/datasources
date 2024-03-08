@@ -51,8 +51,8 @@ Configure which sheets are imported in `connection.yaml`
 
 Each source can be named, which allows more granular configuration options
 
-`id`: the id of the sheet in the URL
-`pages`: a YAML list of all the tabs you want to fetch (useful if you only want a subset of tabs or are getting 429 errors)
+- `id`: the id of the sheet in the URL
+- `pages`: a YAML list of all the tabs you want to fetch (useful if you only want a subset of tabs or are getting 429 errors)
 
 ```
 sheets:
