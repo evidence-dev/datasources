@@ -107,6 +107,8 @@ export async function* processSource(opts, files, utils) {
                 name: name + "_" + page.title.replaceAll(" ", "_").toLowerCase(),
                 content: name + "_" + page.title
             }
+
+            await new Promise(resolve => setTimeout(resolve, conn.options.ratelimitms ? conn.options.ratelimitms : 0)); // Delay each google sheets api call to prevent "Error occured while reloading source: AxiosError: Request failed with status code 429"
         }
     }
     return null
