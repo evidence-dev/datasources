@@ -84,3 +84,21 @@ sheets:
     pages: 
       - sales
 ```
+
+### Limit the Google Sheets API Call Frequency
+
+If you are pulling data from more than a couple of sheets you will likely get this error due to too many concurrent api calls:
+
+```
+"Error occured while reloading source: AxiosError: Request failed with status code 429"
+```
+
+This can be prevented by specifying `ratelimtims` as an option in `connection.yaml`. 2500 works reliably.
+
+```
+name: google_sheet
+type: gsheets
+options: {ratelimitms: 2500}
+sheets:
+  id: 1Sc4nyLSSNETSIEpNKzheh5AFJJ-YA-wQeubFgeeEw9g
+```
